@@ -3,8 +3,8 @@ Author: Daniel Munn <https://github.com/danmunn
 Date: 23/05/2012
 */
 function init_tabs() {
-  tabComment = $('tab-history_comments');
-  tabAll = $('tab-history_all');
+  tabComment = $('#tab-history_comments');
+  tabAll = $('#tab-history_all');
   $(tabComment).bind('click', click_comments);
   $(tabAll).bind('click', click_all);
   tabComment.hasClass('selected') ? show_comments() : show_all();
@@ -17,6 +17,7 @@ function show_comments() {
 
 function show_all() {
   $('.journal').show();
+  $('.journal.has-notes').hide();
 }
 
 function click_comments(e) {
