@@ -1,3 +1,6 @@
 = Redmine detailed issues and detailed timelog
 
 breaks down details into tabs and also adds timelog
+
+** beta
+please note, i have never used git and i never had a public project, so if there is any issues with master or im doing something wrong, please let me and i will be more than open to making changes
