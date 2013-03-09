@@ -8,6 +8,7 @@
 	{:label => :label_history_tab_activity, :name => 'history_activity'},
 	{:label => :label_history_tab_comments, :name => 'history_comments'},
 	{:label => :label_history_tab_private, :name => 'history_private'},
+	{:label => :label_history_tab_time, :name => 'tabtime_time'},
 	] %> 
 <% selected_tab = params[:tab] ? params[:tab].to_s : 'history_all' %> 
 
@@ -40,9 +41,31 @@
     <% end %>
     <%= render_notes(issue, journal, :reply_links => reply_links) unless journal.notes.blank? %>
   </div>
+  
   <%= call_hook(:view_issues_history_journal_bottom, { :journal => journal }) %>  
 
 <% end %>
-
+<% if User.current.allowed_to?(:view_time_entries, @project) %>
+	
+    <% @issue.time_entries.each do |timelog|%>
+    	<div id="time-<%= timelog.id %>" class="journal has-time">
+		    <h4><%= link_to "##{timelog.id}", {:anchor => "note-#{timelog.id}"}, :class => "journal-link" %>
+		    <%= avatar(timelog.user, :size => "24") %>
+		    <%= content_tag('a', '', :name => "note-#{timelog.id}")%>
+		    <%= authoring timelog.created_on, timelog.user, :label => :label_history_time_logged_by %></h4>
+			<ul class="details">
+		    <li><strong><%= l :label_history_time_spent%>:</strong> <%= html_hours("%.2f" % timelog.hours) %> <%= l :label_history_time_hours_on%> <%= h timelog.activity%></li>
+			<% if timelog.comments.any?%> 
+				<blockquote>
+					<p>
+						<%= timelog.comments %>
+					</p>
+				</blockquote>
+				</li>
+		    <% end %>
+		    </ul>
+	  </div>
+    <% end %>
+  <% end %>
 <% heads_for_wiki_formatter if User.current.allowed_to?(:edit_issue_notes, issue.project) || User.current.allowed_to?(:edit_own_issue_notes, issue.project) %>
 
