@@ -4,22 +4,24 @@
 
 <% reply_links = authorize_for('issues', 'edit') -%>
 <% tabs = [
-	{:label => :label_history_tab_comments, :name => 'history_comments'},
 	{:label => :label_history_tab_all, :name => 'history_all'}, 
+	{:label => :label_history_tab_activity, :name => 'history_activity'},
+	{:label => :label_history_tab_comments, :name => 'history_comments'},
+	{:label => :label_history_tab_private, :name => 'history_private'},
 	] %> 
-<% selected_tab = params[:tab] ? params[:tab].to_s : 'history_comments' %> 
+<% selected_tab = params[:tab] ? params[:tab].to_s : 'history_all' %> 
 
 <div class="tabs">
 <ul>
 <% tabs.each do |tab| -%>
     <li><%= link_to l(tab[:label]), { :tab => tab[:name] },
                                     :id => "tab-#{tab[:name]}",
-                                    :class => (tab[:name] != selected_tab ? nil : 'selected'),
+                                    :class => ((tab[:name] != selected_tab ? 'tab-history' : 'tab-history selected')),
                                     :onclick => "return false;"%></li>
 <% end -%>
 </ul>
 </div>
-
+ 
 <% reply_links = authorize_for('issues', 'edit') -%>
 <% for journal in journals %>
 

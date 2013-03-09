@@ -1,41 +1,26 @@
 /*
 Author: Daniel Munn <https://github.com/danmunn
 Date: 23/05/2012
+Forked & Redone: Mark Kalender (Markedagain)
+Date: 08/03/2013
 */
 function init_tabs() {
-  tabComment = $('#tab-history_comments');
-  tabAll = $('#tab-history_all');
-  $(tabComment).bind('click', click_comments);
-  $(tabAll).bind('click', click_all);
-  tabComment.hasClass('selected') ? show_comments() : show_all();
+	bindTab('#tab-history_private', '.journal.private-notes');
+	bindTab('#tab-history_comments', '.journal.has-notes');
+	bindTab('#tab-history_activity', '.journal.has-details');
+	bindTab('#tab-history_all', '.journal');
 }
-
-function show_comments() {
+function bindTab(tabName , journal){
+	$(tabName).click(function(e){
+		$('.tab-history').removeClass('selected')
+		$(this).addClass('selected')
+		show_history($(journal));
+	 })
+}
+function show_history(tag) {
   $('.journal').hide();
-  $('.journal.has-notes').show();
+  tag.show();
 }
-
-function show_all() {
-  $('.journal').show();
-  $('.journal.has-notes').hide();
-}
-
-function click_comments(e) {
-  tabComment.addClass('selected');
-  tabAll.removeClass('selected');
-  show_comments();
-  Event.stop(e);
-}
-
-function click_all(e) {
-  tabComment.removeClass('selected');
-  tabAll.addClass('selected');
-  show_all();
-  Event.stop(e);
-}
-
-var tabAll;
-var tabComment;
 
 $(document).ready(function(){
   init_tabs();

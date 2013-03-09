@@ -5,5 +5,5 @@ Redmine::Plugin.register :redmine_issue_history_tabs do
   name 'Redmine Issue History Tabs plugin'
   author 'Daniel MunnKonstantin Zaitsev'
   description 'This plugin provide history of issue in tabs representation'
-  version '0.0.3'
+  version '0.0.6'
 end
