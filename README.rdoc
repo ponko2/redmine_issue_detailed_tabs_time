@@ -8,17 +8,27 @@
 ** beta 0.0.6
 
 -forked off https://github.com/tastapod/redmine_issue_history_tabs 
+
 -added a new type of note for detailed time reports and comment
+
 -altered and added tabs ( All , Comments , Private , Activity , Time Log , )
+
 -revamped js system and changed post behaviour to js
+
 -removed some legacy files and code
 
 project home page
+
 http://www.redmine.org/plugins/redmine_issue_detailed_tabs_time
+
+
 project discussion
+
 http://www.redmine.org/boards/3/topics/36787
 
 
 project inspired by a none maintained repo from @tastapod that added a tab system that reloaded page
+
 project was forked to keep legacy from: https://github.com/tastapod/redmine_issue_history_tabs 
+
 and That Author had converted plugin from http://kosz-redmine-tools.googlecode.com/
