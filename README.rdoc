@@ -1,11 +1,18 @@
 = Redmine detailed issues and detailed timelog
 
--break down detailed info into tabs in show issue
+-Add detailed tabs in show issue
+
+ ( All , Comments , Private , Activity , Time Log , )
 
 -adds detailed timelog to show issue
 
 
 http://www.redmine.org/attachments/download/9248/mini_spoiler.PNG
+
+
+** beta 0.0.7
+
+-changing name of plugin inside code for my sanity. fixs js not loading
 
 ** beta 0.0.6
 
