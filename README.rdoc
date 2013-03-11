@@ -6,6 +6,9 @@
 
 -adds detailed timelog to show issue
 
+-tabs only show up if anything to put in them
+
+-added question tab ( general for now)
 
 http://www.redmine.org/attachments/download/9248/mini_spoiler.PNG
 
