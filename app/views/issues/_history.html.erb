@@ -11,7 +11,6 @@ end
     
 tabs = [
     {:label => :label_history_tab_all, :name => 'history_all'},
-   
   ]
 
 selected_tab = params[:tab] ? params[:tab].to_s : 'history_all'
@@ -21,15 +20,15 @@ c = ''
 
 for journal in journals
 	tabs.push({:label => :label_history_tab_comments, :name => 'history_comments'}) unless journal.notes.blank?
- 	tabs.push( {:label => :label_tabtime_questions, :name => 'tabtime_questions'} ) if journal.css_classes.include?("question")
-	tabs.push( {:label => :label_history_tab_private, :name => 'history_private'} ) if journal.css_classes.include?("private")
+ 	tabs.push({:label => :label_tabtime_questions, :name => 'tabtime_questions'} ) if journal.css_classes.include?("question")
+	tabs.push({:label => :label_history_tab_private, :name => 'history_private'} ) if journal.css_classes.include?("private")
 	
 	c << "<div id='change-#{journal.id}' class='#{journal.css_classes}'>"
 	c << "<h4>"
-	c << link_to ("##{journal.indice}", {:anchor => "note-#{journal.indice}"}, :class => "journal-link" )
-	c <<  avatar(journal.user, :size => "24")
+	c << link_to("##{journal.indice}", {:anchor => "note-#{journal.indice}"}, :class => "journal-link" )
+	c << avatar(journal.user, :size => "24")
 	c << content_tag('a', '', :name => "note-#{journal.indice}")
-	c << authoring (journal.created_on, journal.user, :label => :label_updated_time_by)
+	c << authoring(journal.created_on, journal.user, :label => :label_updated_time_by)
 	c << "</h4>"
 
 	if (journal.details.any?)
@@ -50,14 +49,14 @@ if User.current.allowed_to?(:view_time_entries, @project)
 	@issue.time_entries.each do |timelog|
 	c << "<div id='time-#{timelog.id}' class='journal has-time'>"
 	c << "<h4>"
-	c << link_to ("##{timelog.id}", {:anchor => "note-#{timelog.id}"}, :class => "journal-link")
+	c << link_to("##{timelog.id}", {:anchor => "note-#{timelog.id}"}, :class => "journal-link")
 	c << avatar(timelog.user, :size => "24")
 	c << content_tag('a', '', :name => "note-#{timelog.id}")
-		c << authoring (timelog.created_on, timelog.user, :label => :label_history_time_logged_by) 
+		c << authoring(timelog.created_on, timelog.user, :label => :label_history_time_logged_by) 
 		c << '</h4>'
 		c << '<ul class="details">'
 		c << '<li>'
-				c << "<strong>" + l (:label_history_time_spent) + ":</strong> " + html_hours("%.2f" % timelog.hours) + " " + l (:label_history_time_hours_on) + " " + h (timelog.activity)
+				c << "<strong>" + l(:label_history_time_spent) + ":</strong> " + html_hours("%.2f" % timelog.hours) + " " + l(:label_history_time_hours_on) + " " + h(timelog.activity)
 		c << '</li>'
 			if timelog.comments.any?
 				c << '<blockquote>'
