@@ -21,8 +21,8 @@ c = ''
 
 for journal in journals
 	tabs.push({:label => :label_history_tab_comments, :name => 'history_comments'}) unless journal.notes.blank?
- 	tabs.push( {:label => :label_tabtime_questions, :name => 'tabtime_questions'} ) if journal.css_classes.scan("question")
-	tabs.push( {:label => :label_history_tab_private, :name => 'history_private'} ) if journal.css_classes.scan("private")
+ 	tabs.push( {:label => :label_tabtime_questions, :name => 'tabtime_questions'} ) if journal.css_classes.include?("question")
+	tabs.push( {:label => :label_history_tab_private, :name => 'history_private'} ) if journal.css_classes.include?("private")
 	
 	c << "<div id='change-#{journal.id}' class='#{journal.css_classes}'>"
 	c << "<h4>"
