@@ -20,8 +20,16 @@ c = ''
 
 for journal in journals
 	tabs.push({:label => :label_history_tab_comments, :name => 'history_comments'}) unless journal.notes.blank?
- 	tabs.push({:label => :label_tabtime_questions, :name => 'tabtime_questions'} ) if journal.css_classes.include?("question")
-	tabs.push({:label => :label_history_tab_private, :name => 'history_private'} ) if journal.css_classes.include?("private")
+
+ 	if journal.question
+ 		
+		if journal.question.assigned_to == User.current || journal.user == User.current
+ 			#tabs.push({:label => :label_tabtime_my_questions, :name => 'tabtime_myquestions'} ) 
+ 			tabs.push({:label => :label_tabtime_questions, :name => 'tabtime_questions'} ) 
+		end
+ 	end
+	tabs.push({:label => :label_history_tab_private, :name => 'history_private'} ) if journal.private_notes?
+	
 	
 	c << "<div id='change-#{journal.id}' class='#{journal.css_classes}'>"
 	c << "<h4>"
@@ -42,7 +50,9 @@ for journal in journals
  	c << render_notes(issue, journal, :reply_links => reply_links) unless journal.notes.blank?
 	c << "</div>" 
 	c <<  call_hook(:view_issues_history_journal_bottom, { :journal => journal })
+	
 end 
+
 
 if User.current.allowed_to?(:view_time_entries, @project) 
 
@@ -58,7 +68,7 @@ if User.current.allowed_to?(:view_time_entries, @project)
 		c << '<li>'
 				c << "<strong>" + l(:label_history_time_spent) + ":</strong> " + html_hours("%.2f" % timelog.hours) + " " + l(:label_history_time_hours_on) + " " + h(timelog.activity)
 		c << '</li>'
-			if timelog.comments.any?
+			unless timelog.comments.empty?
 				c << '<blockquote>'
 					c << '<p>'
 					c << timelog.comments 
