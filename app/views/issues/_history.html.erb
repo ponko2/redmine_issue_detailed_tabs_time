@@ -47,18 +47,18 @@ end
 if User.current.allowed_to?(:view_time_entries, @project) 
 
 	@issue.time_entries.each do |timelog|
-	c << "<div id='time-#{timelog.id}' class='journal has-time'>"
-	c << "<h4>"
-	c << link_to("##{timelog.id}", {:anchor => "note-#{timelog.id}"}, :class => "journal-link")
-	c << avatar(timelog.user, :size => "24")
-	c << content_tag('a', '', :name => "note-#{timelog.id}")
-		c << authoring(timelog.created_on, timelog.user, :label => :label_history_time_logged_by) 
-		c << '</h4>'
-		c << '<ul class="details">'
-		c << '<li>'
-				c << "<strong>" + l(:label_history_time_spent) + ":</strong> " + html_hours("%.2f" % timelog.hours) + " " + l(:label_history_time_hours_on) + " " + h(timelog.activity)
-		c << '</li>'
-			if timelog.comments.any?
+		c << "<div id='time-#{timelog.id}' class='journal has-time'>"
+		c << "<h4>"
+		c << link_to("##{timelog.id}", {:anchor => "note-#{timelog.id}"}, :class => "journal-link")
+		c << avatar(timelog.user, :size => "24")
+		c << content_tag('a', '', :name => "note-#{timelog.id}")
+			c << authoring(timelog.created_on, timelog.user, :label => :label_history_time_logged_by) 
+			c << '</h4>'
+			c << '<ul class="details">'
+			c << '<li>'
+					c << "<strong>" + l(:label_history_time_spent) + ":</strong> " + html_hours("%.2f" % timelog.hours) + " " + l(:label_history_time_hours_on) + " " + h(timelog.activity)
+			c << '</li>'
+			unless timelog.comments.empty?
 				c << '<blockquote>'
 					c << '<p>'
 					c << timelog.comments 
@@ -66,10 +66,10 @@ if User.current.allowed_to?(:view_time_entries, @project)
 			c << '</blockquote>'
 			c << '</li>'
 			end
-		c << '</ul>'
-	c << '</div>'
-	
-	tabs.push( {:label => :label_history_tab_time, :name => 'tabtime_time'}) 
+			c << '</ul>'
+		c << '</div>'
+		
+		tabs.push( {:label => :label_history_tab_time, :name => 'tabtime_time'}) 
 	end 
 end 
 tabs = tabs.uniq
