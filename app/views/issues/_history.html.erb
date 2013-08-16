@@ -20,8 +20,9 @@ c = ''
 
 entries = journals + @issue.time_entries
 entries.sort! { |x,y| x.created_on <=> y.created_on }
-
+index = 1
 for entry in entries
+
 	if entry.is_a?(Journal)
 		journal = entry
 		tabs.push({:label => :label_history_tab_comments, :name => 'history_comments'}) unless journal.notes.blank?
@@ -38,7 +39,7 @@ for entry in entries
 		
 		c << "<div id='change-#{journal.id}' class='#{journal.css_classes}'>"
 		c << "<h4>"
-		c << link_to("##{journal.indice}", {:anchor => "note-#{journal.indice}"}, :class => "journal-link" )
+		c << link_to("##{index}", {:anchor => "note-#{index}"}, :class => "journal-link" )
 		c << avatar(journal.user, :size => "24")
 		c << content_tag('a', '', :name => "note-#{journal.indice}")
 		c << authoring(journal.created_on, journal.user, :label => :label_updated_time_by)
@@ -55,14 +56,15 @@ for entry in entries
 	 	c << render_notes(issue, journal, :reply_links => reply_links) unless journal.notes.blank?
 		c << "</div>" 
 		c <<  call_hook(:view_issues_history_journal_bottom, { :journal => journal })
+		index += 1
 	elsif entry.is_a?(TimeEntry)
 	  timelog = entry
 	  if User.current.allowed_to?(:view_time_entries, @project) 
 		c << "<div id='time-#{timelog.id}' class='journal has-time'>"
 		c << "<h4>"
-		c << link_to("##{timelog.id}", {:anchor => "note-#{timelog.id}"}, :class => "journal-link")
+		c << link_to("##{index}", {:anchor => "note-#{index}"}, :class => "journal-link")
 		c << avatar(timelog.user, :size => "24")
-		c << content_tag('a', '', :name => "note-#{timelog.id}")
+		c << content_tag('a', '', :name => "note-#{index}")
 			c << authoring(timelog.created_on, timelog.user, :label => :label_history_time_logged_by) 
 			c << '</h4>'
 			c << '<ul class="details">'
@@ -79,6 +81,7 @@ for entry in entries
 				end
 			c << '</ul>'
 		c << '</div>'
+		index += 1
 		
 		tabs.push( {:label => :label_history_tab_time, :name => 'tabtime_time'}) 	
 	  end
