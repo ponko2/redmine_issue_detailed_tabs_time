@@ -11,12 +11,14 @@ function init_tabs() {
 	bindTab('#tab-history_comments', '.journal.has-notes');
 	bindTab('#tab-history_activity', '.journal.has-details');
 	bindTab('#tab-history_all', '.journal');
+	if (window.location.hash){$(window.location.hash).click();}
 }
 function bindTab(tabName , journal){
 	$(tabName).click(function(e){
 		$('.tab-history').removeClass('selected')
 		$(this).addClass('selected')
 		show_history($(journal));
+		window.location.hash = tabName
 	 })
 }
 function show_history(tag) {
