@@ -18,7 +18,7 @@ index = 1
 
 if !entries.empty?
 	# we will first go trough all the items once so that we can determine what
-	# tabs are availebal for us to select default tab or tab in url
+	# tabs are available for us to select default tab or tab in url
 	tabs.push({:label => :label_history_tab_all, :name => 'history_all'}) if User.current.allowed_to?(:view_all,@project,:global => true)
 	for entry in entries
 		if entry.is_a?(Journal) && journals.include?(entry) 
