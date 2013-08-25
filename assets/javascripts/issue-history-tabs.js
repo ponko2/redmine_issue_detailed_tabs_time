@@ -11,15 +11,23 @@ function init_tabs() {
 	bindTab('#tab-history_comments', '.journal.has-notes');
 	bindTab('#tab-history_activity', '.journal.has-details');
 	bindTab('#tab-history_all', '.journal');
-	if (window.location.hash){$(window.location.hash).click();}
+	selectecTab = $('.tab-history.selected')[0].id
+	if (selectecTab != 'tab-history_all'){$('#'+selectecTab).click();};
+	
 }
 function bindTab(tabName , journal){
 	$(tabName).click(function(e){
 		$('.tab-history').removeClass('selected')
-		$(this).addClass('selected')
+		$(tabName).addClass('selected')
+		if("replaceState" in window.history){
+			url = '?tab='+tabName.replace('#tab-','');
+			window.history.replaceState(null,document.title,url);
+		} 
 		show_history($(journal));
-		window.location.hash = tabName
 	 })
+}
+function doClick(tabName, journal){
+	
 }
 function show_history(tag) {
   $('.journal').hide();
