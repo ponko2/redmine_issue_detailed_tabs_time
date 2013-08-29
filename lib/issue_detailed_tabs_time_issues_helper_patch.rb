@@ -94,7 +94,7 @@ module RedmineIssueDetailedTabsTimeIssuesHelperPatch
             c << "<h4>"
               c << link_to("##{index}", {:anchor => "note-#{index}"}, :class => "journal-link" )
               c << avatar(journal.user, :size => "24")
-              c << content_tag('a', '', :name => "note-#{journal.indice}")
+              c << content_tag('a', '', :name => "note-#{index}")
               c << authoring(journal.created_on, journal.user, :label => :label_updated_time_by)
             c << "</h4>"
           
