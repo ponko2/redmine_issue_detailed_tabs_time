@@ -7,12 +7,10 @@ c = ''
 entries = get_issue_history_tab_entries()
 
 if !entries.empty?
-  tabs = get_issue_history_tabs(entries, journals)
+  tabs = get_issue_history_tabs(entries, journals).uniq
     # now we will try to see what tab will be the selected one
   selected_tab = get_selected_issue_history_tab(tabs)
 	c << draw_entries_in_issue_history_tab(entries, journals)
-	 
-	tabs = tabs.uniq
 	%>
 	
 	<div class="tabs">
