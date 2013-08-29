@@ -21,6 +21,14 @@ module RedmineIssueDetailedTabsTimeIssuesHelperPatch
         ['history_comments','history_all','history_activity','history_private','tabtime_time']
       end
       
+      def get_issue_history_index(index, count)
+        if User.current.wants_comments_in_reverse_order?
+          return count - index + 1
+        else
+          return index
+        end
+      end
+      
       def get_issue_history_tab_entries()
         # Get a list of all journals and time entries to iterate through.  This ensures
         # that the bookmarks will be consistent for all users regardless of permission
@@ -28,6 +36,8 @@ module RedmineIssueDetailedTabsTimeIssuesHelperPatch
         # intersperses the time entries and journals together in chronological order.
         entries = @issue.journals + @issue.time_entries
         entries.sort! { |x,y| x.created_on <=> y.created_on }
+        entries.reverse! if User.current.wants_comments_in_reverse_order?
+        entries
       end
       
       def get_issue_history_tabs(entries, journals)
@@ -60,7 +70,7 @@ module RedmineIssueDetailedTabsTimeIssuesHelperPatch
         c = ""
         index = 1
         for entry in entries
-            c << draw_entry_in_tab(entry, index, journals)
+            c << draw_entry_in_tab(entry, get_issue_history_index(index, entries.count), journals)
             index += 1
         end #for entries
         c
