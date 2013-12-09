@@ -51,3 +51,5 @@ project inspired by a none maintained repo from @tastapod that added a tab syste
 project was forked to keep legacy from: https://github.com/tastapod/redmine_issue_history_tabs 
 
 and That Author had converted plugin from http://kosz-redmine-tools.googlecode.com/
+
+
