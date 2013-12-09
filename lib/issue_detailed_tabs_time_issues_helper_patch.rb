@@ -91,7 +91,7 @@ module RedmineIssueDetailedTabsTimeIssuesHelperPatch
           c << "<div id='change-#{journal.id}' class='#{journal.css_classes}'>"
             c << "<h4>"
               c << link_to("##{index}", {:anchor => "note-#{index}"}, :class => "journal-link" )
-             	c << avatar(journal.user, :size => "24") unless journal.user.id == 2
+             	c << avatar(journal.user, :size => "24") unless journal.user.is_a?(AnonymousUser)
               c << content_tag('a', '', :name => "note-#{index}")
               c << authoring(journal.created_on, journal.user, :label => :label_updated_time_by)
             c << "</h4>"
