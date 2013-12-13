@@ -77,11 +77,13 @@ module RedmineIssueDetailedTabsTimeIssuesHelperPatch
       end
       
       def draw_entry_in_tab(entry, index, journals)
+        c = ""
         if entry.is_a?(Journal) && journals.include?(entry) # only show if visible
-          draw_journal_in_tab(entry, index)
+          c = draw_journal_in_tab(entry, index)
         elsif entry.is_a?(TimeEntry)
-          draw_timelog_in_tab(entry, index)
+          c = draw_timelog_in_tab(entry, index)
         end
+       c
       end
       
       def draw_journal_in_tab(journal, index)
