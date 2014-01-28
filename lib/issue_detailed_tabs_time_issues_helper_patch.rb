@@ -98,9 +98,9 @@ module RedmineIssueDetailedTabsTimeIssuesHelperPatch
               c << authoring(journal.created_on, journal.user, :label => :label_updated_time_by)
             c << "</h4>"
           
-            if (journal.details.any?) && User.current.allowed_to?(:view_activity,@project,:global => true)
+            if (journal.visible_details.any?) && User.current.allowed_to?(:view_activity,@project,:global => true)
               c << "<ul class='details'>"
-                details_to_strings(journal.details).each do |string|
+                details_to_strings(journal.visible_details).each do |string|
                 c << "<li>" + string + "</li>"
                 end
               c << "</ul>"
