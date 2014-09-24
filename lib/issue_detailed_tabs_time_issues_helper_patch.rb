@@ -81,6 +81,8 @@ module RedmineIssueDetailedTabsTimeIssuesHelperPatch
           draw_journal_in_tab(entry, index)
         elsif entry.is_a?(TimeEntry)
           draw_timelog_in_tab(entry, index)
+        else
+          ""
         end
         c
       end
