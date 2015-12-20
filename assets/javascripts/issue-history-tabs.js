@@ -4,13 +4,14 @@ Date: 23/05/2012
 Forked & Redone: Mark Kalender (Markedagain)
 Date: 08/03/2013
 */
-function init_tabs() {
+function initTabs() {
 	bindTab('tabtime_questions', '.journal.question,.journal.question-closed');
 	bindTab('tabtime_time', '.journal.has-time');
 	bindTab('history_private', '.journal.private-notes');
 	bindTab('history_comments', '.journal.has-notes');
 	bindTab('history_activity', '.journal.has-details');
 	bindTab('history_all', '.journal');
+  bindTab('history_none', '');
 	$('.tab-history.selected').not('#tab-history_all')[0] && $('.tab-history.selected').not('#tab-history_all')[0].click();
 }
 
@@ -27,5 +28,5 @@ function bindTab(tab, journal){
 }
 
 $(document).ready(function(){
-  init_tabs();
+  initTabs();
 });
