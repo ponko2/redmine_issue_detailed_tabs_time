@@ -57,7 +57,11 @@ function selectDefaultTab() {
 			return;
 		}
 	}
-	$('.tab-history.selected').not('#tab-history_all')[0] && $('.tab-history.selected').not('#tab-history_all')[0].click();
+  var elem = $('.tab-history.selected').not('#tab-history_all')[0];
+  if(elem && (elem.click != undefined)) {
+    elem.click();
+  }
+	// $('.tab-history.selected').not('#tab-history_all')[0] && $('.tab-history.selected').not('#tab-history_all')[0].click();
 }
 
 $(document).ready(function(){
