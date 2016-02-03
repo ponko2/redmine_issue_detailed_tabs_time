@@ -24,40 +24,69 @@ function readCookie(name) {
 	return null;
 }
 
+HISTORY_TABS = {
+	'tabtime_questions': '.journal.question,.journal.question-closed',
+	'tabtime_time': '.journal.has-time',
+	'history_private': '.journal.private-notes',
+	'history_comments': '.journal.has-notes',
+	'history_activity': '.journal.has-details',
+	'history_all': '.journal',
+	'history_none': ''
+}
+
 function initTabs() {
-	bindTab('tabtime_questions', '.journal.question,.journal.question-closed');
-	bindTab('tabtime_time', '.journal.has-time');
-	bindTab('history_private', '.journal.private-notes');
-	bindTab('history_comments', '.journal.has-notes');
-	bindTab('history_activity', '.journal.has-details');
-	bindTab('history_all', '.journal');
-	bindTab('history_none', '');
+	for(tab in HISTORY_TABS) {
+		bindTab(tab)
+	}
 	selectDefaultTab();
 }
 
-function bindTab(tab, journal){
-	$('#tab-'+tab).click(function(){
-		$('.tab-history').removeClass('selected');
-		$('#tab-'+tab).addClass('selected');
-		if("replaceState" in window.history){
-			window.history.replaceState(null,document.title,'?tab='+tab);
+function bindTab(tab){
+	$('#tab-' + tab).click(function(){
+		selectTab(tab);
+		if('replaceState' in window.history){
+			window.history.replaceState(null, document.title, '?tab=' + tab);
 		}
-		$('.journal').hide();
-		$(journal).show();
-		createCookie('selected_issue_tab', tab);
 	});
+}
+
+function selectTab(tab) {
+	if(!(tab in HISTORY_TABS)) {
+		return;
+	}
+	$('.tab-history').removeClass('selected');
+	$('#tab-' + tab).addClass('selected');
+	$('.journal').hide();
+	$(HISTORY_TABS[tab]).show();
+	createCookie('selected_issue_tab', tab);
 }
 
 function selectDefaultTab() {
 	var tab = readCookie('selected_issue_tab');
-	if(tab != null) {
-		var elem = $('#tab-' + tab);
+	var focusOn = null;
+	if(window.location.hash != '') {
+		var elName = window.location.hash;
+		elName = elName.substring(1, elName.length);
+		var elem = $('a[name=' + elName + ']').parent().parent();
 		if(elem) {
-			elem.click();
-			return;
+			tab = 'history_all';
+			focusOn = elem;
 		}
 	}
-	$('.tab-history.selected').not('#tab-history_all')[0] && $('.tab-history.selected').not('#tab-history_all')[0].click();
+	if(!tab) {
+		var elem = $('.tab-history.selected').not('#tab-history_all')[0];
+		if(elem) {
+			var id = elem.attr('id');
+			tab = id.substring(4, id.length);
+		}
+	}
+	selectTab(tab);
+	if(focusOn) {
+		$('html, body').animate({
+			scrollTop: focusOn.offset().top
+		}, 500);
+		focusOn.addClass('focus');
+	}
 }
 
 $(document).ready(function(){
