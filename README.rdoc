@@ -1,3 +1,5 @@
+I have stopped support of this plugin, I now use http://rmplus.pro/en/redmine/plugins/issue_tabs , has all the great features and more!
+
 = Redmine detailed issues and detailed timelog
 
 
